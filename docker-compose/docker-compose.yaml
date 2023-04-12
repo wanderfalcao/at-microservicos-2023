@@ -9,6 +9,25 @@ services:
     container_name: eureka-server
     networks:
       - mynet
+  jenkins:
+    image: jenkins/jenkins:lts
+    build: ./jenkins/.
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - ./jenkins_home:/var/jenkins_home
+    restart: always
+    container_name: jenkins
+    networks:
+      - mynet
+  sonarqube:
+    image: sonarqube
+    ports:
+      - "9000:9000"
+    container_name: sonarqube
+    networks:
+      - mynet
   administrator-service:
     build: ../administrator-service/.
     ports:
