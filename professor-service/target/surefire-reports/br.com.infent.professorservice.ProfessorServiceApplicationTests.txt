@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: br.com.infent.professorservice.ProfessorServiceApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.29 s - in br.com.infent.professorservice.ProfessorServiceApplicationTests
