@@ -1,0 +1,15 @@
+br\com\infnet\alunoService\model\Aluno$AlunoBuilder.class
+br\com\infnet\alunoService\repository\AlunoRepository.class
+br\com\infnet\alunoService\model\AtividadeRecebido$AtividadeRecebidoBuilder.class
+br\com\infnet\alunoService\model\Atividade$AtividadeBuilder.class
+br\com\infnet\alunoService\service\impl\AlunoServiceImpl.class
+br\com\infnet\alunoService\model\Atividade.class
+br\com\infnet\alunoService\conf\RabbitMqConf.class
+br\com\infnet\alunoService\model\Professor.class
+br\com\infnet\alunoService\controller\AlunoController.class
+br\com\infnet\alunoService\model\AtividadeRecebido.class
+br\com\infnet\alunoService\model\Professor$ProfessorBuilder.class
+br\com\infnet\alunoService\service\AlunoService.class
+br\com\infnet\alunoService\repository\AtividadeRepository.class
+br\com\infnet\alunoService\AlunoServiceApplication.class
+br\com\infnet\alunoService\model\Aluno.class

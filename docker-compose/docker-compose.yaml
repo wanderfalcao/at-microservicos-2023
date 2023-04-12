@@ -1,0 +1,116 @@
+version: '3.8'
+
+services:
+
+  eureka-service:
+    build: ../eureka-server/.
+    ports:
+      - "8761:8761"
+    container_name: eureka-server
+    networks:
+      - mynet
+  administrator-service:
+    build: ../administrator-service/.
+    ports:
+      - "8088:8088"
+    depends_on:
+      - eureka-service
+      - alunoprofessordb
+      - rabbitmq
+    links:
+      - alunoprofessordb
+    env_file:
+      - .env
+    container_name: administrator-service
+    networks:
+      - mynet
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    restart: always
+    depends_on:
+      - eureka-service
+      - administrator-service
+      - prometheus
+    links:
+      - prometheus
+    networks:
+      - mynet
+    ports:
+      - "3000:3000"
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    depends_on:
+      - eureka-service
+      - administrator-service
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - mynet
+    container_name: prometheus
+  aluno-service:
+    build: ../aluno-service/.
+    container_name: aluno-service
+    ports:
+      - "8090:8090"
+    depends_on:
+      - eureka-service
+      - alunoprofessordb
+      - rabbitmq
+    links:
+      - alunoprofessordb
+    env_file:
+      - .env
+    networks:
+      - mynet
+  professor-service:
+    build: ../professor-service/.
+    container_name: professor-service
+    ports:
+      - "8089:8089"
+    depends_on:
+      - eureka-service
+      - alunoprofessordb
+      - rabbitmq
+    env_file:
+      - .env
+    links:
+      - alunoprofessordb
+    networks:
+      - mynet
+  rabbitmq:
+    image: rabbitmq:3-management
+    hostname: rabbitmq
+    ports:
+      # AMQP protocol port
+      - "5672:5672"
+      # HTTP management UI
+      - "15672:15672"
+    volumes:
+      - ./rabbitmq/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf:ro
+      - ./rabbitmq/definitions.json:/etc/rabbitmq/definitions.json:ro
+    networks:
+      - mynet
+    container_name: rabbitmq
+
+
+  alunoprofessordb:
+    image: postgres
+    container_name: alunoprofessordb
+    hostname: postgres
+    volumes:
+      - ./createDB.sql:/docker-entrypoint-initdb.d/createDB.sql
+    environment:
+      POSTGRES_PASSWORD: 123
+    ports:
+      - "5432:5432"
+    expose:
+      - "5432:5432"
+    networks:
+      - mynet
+
+networks:
+  mynet:
+    name: my-shared-db-network
