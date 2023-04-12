@@ -15,7 +15,9 @@
     <description>professor-service</description>
     <properties>
         <java.version>17</java.version>
-        <spring-cloud.version>2021.0.5</spring-cloud.version>
+        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <spring-cloud.version>2021.0.1</spring-cloud.version>
     </properties>
     <dependencies>
         <dependency>
