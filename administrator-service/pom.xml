@@ -18,7 +18,7 @@
         <maven.compiler.target>17</maven.compiler.target>
         <maven.compiler.source>17</maven.compiler.source>
         <spring-cloud.version>2021.0.1</spring-cloud.version>
-        <sonar.host.url>http://sonarqube:9000</sonar.host.url>
+        <sonar.host.url>http://localhost:9000</sonar.host.url>
         <sonar.token>sqp_16f234c56b1e68f36efdd8a623464f4352d1dde6</sonar.token>
         <sonar.login>admin</sonar.login>
         <sonar.password>wander</sonar.password>
@@ -54,7 +54,6 @@
         <dependency>
             <groupId>io.micrometer</groupId>
             <artifactId>micrometer-core</artifactId>
-            <version>1.10.0</version>
         </dependency>
         <dependency>
             <groupId>io.micrometer</groupId>
@@ -74,10 +73,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.micrometer</groupId>
-            <artifactId>micrometer-core</artifactId>
         </dependency>
 
     </dependencies>
@@ -121,14 +116,7 @@
                     </excludes>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.2</version>
-                <configuration>
-                    <skipTests>true</skipTests>
-                </configuration>
-            </plugin>
+
         </plugins>
     </build>
 
