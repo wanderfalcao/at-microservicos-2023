@@ -1,8 +1,13 @@
 server:
   port: 8761
+spring:
+  application:
+    name: eureka-service
 eureka:
   client:
     register-with-eureka: false
     fetch-registry: false
-  instance:
-    lease-renewal-interval-in-seconds: 1
+    service:
+      service-url: http://${eureka.instance.hostname}:${server.port}/eureka/
+    server:
+      waitTimeInMsWhenSyncEmpty: 5
