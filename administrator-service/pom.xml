@@ -18,10 +18,6 @@
         <maven.compiler.target>17</maven.compiler.target>
         <maven.compiler.source>17</maven.compiler.source>
         <spring-cloud.version>2021.0.1</spring-cloud.version>
-        <sonar.host.url>http://localhost:9000</sonar.host.url>
-        <sonar.token>sqp_16f234c56b1e68f36efdd8a623464f4352d1dde6</sonar.token>
-        <sonar.login>admin</sonar.login>
-        <sonar.password>wander</sonar.password>
     </properties>
     <dependencies>
         <dependency>
@@ -90,20 +86,6 @@
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.sonarsource.scanner.maven</groupId>
-                <artifactId>sonar-maven-plugin</artifactId>
-                <version>3.7.0.1746</version>
-                <executions>
-                    <execution>
-                        <id>sonar</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>sonar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
