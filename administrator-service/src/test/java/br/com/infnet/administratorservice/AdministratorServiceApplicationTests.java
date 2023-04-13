@@ -7,7 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 class AdministratorServiceApplicationTests {
 
     @Test
-    void contextLoads() {
+    void contextLoads() throws  UnsupportedOperationException {
     }
 
 }

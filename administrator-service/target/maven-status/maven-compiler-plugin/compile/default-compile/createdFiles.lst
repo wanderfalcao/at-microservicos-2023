@@ -1,14 +1,14 @@
 br\com\infnet\administratorservice\service\AdminProfessorService.class
+br\com\infnet\administratorservice\service\impl\AdminAlunoServiceImpl.class
 br\com\infnet\administratorservice\config\AdminCustomMetrics.class
-br\com\infnet\administratorservice\service\impl\adminAlunoServiceImpl.class
 br\com\infnet\administratorservice\service\AdminAlunoService.class
 br\com\infnet\administratorservice\model\Aluno.class
 br\com\infnet\administratorservice\repository\AdminProfessorRepository.class
 br\com\infnet\administratorservice\model\Aluno$AlunoBuilder.class
 br\com\infnet\administratorservice\model\Professor$ProfessorBuilder.class
+br\com\infnet\administratorservice\controller\AdminAlunoController.class
 br\com\infnet\administratorservice\controller\AdminProfessorController.class
 br\com\infnet\administratorservice\service\impl\AdminProfessorServiceImpl.class
-br\com\infnet\administratorservice\controller\adminAlunoController.class
 br\com\infnet\administratorservice\model\Professor.class
 br\com\infnet\administratorservice\repository\AdminAlunoRepository.class
 br\com\infnet\administratorservice\AdministratorServiceApplication.class

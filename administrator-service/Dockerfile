@@ -1,4 +1,4 @@
-FROM maven:3.8.4-openjdk-17-slim as build
+FROM maven:3.8.4-openjdk-17-slim AS build
 
 COPY . .
 RUN mvn install -q -DskipTests
