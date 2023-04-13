@@ -2,7 +2,7 @@ package br.com.infnet.administratorservice.controller;
 
 import br.com.infnet.administratorservice.model.Aluno;
 import br.com.infnet.administratorservice.model.Professor;
-import br.com.infnet.administratorservice.service.impl.adminAlunoServiceImpl;
+import br.com.infnet.administratorservice.service.impl.AdminAlunoServiceImpl;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -21,7 +21,7 @@ import java.util.Map;
 @RequestMapping("/aluno")
 public class adminAlunoController {
     @Autowired
-    adminAlunoServiceImpl adminAlunoService;
+    AdminAlunoServiceImpl adminAlunoService;
 
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Aluno Cadastrado",
@@ -30,7 +30,7 @@ public class adminAlunoController {
             @ApiResponse(responseCode = "500", description = "Algo de errado aconteceu",
                     content = @Content)})
     @PostMapping("/criarNovoAluno")
-    public ResponseEntity create(@Valid @RequestBody Aluno aluno){
+    public ResponseEntity<Map<String, String>> create(@Valid @RequestBody Aluno aluno){
         adminAlunoService.createAluno(aluno);
         return ResponseEntity.status(HttpStatus.CREATED).body(Map.of(aluno.getNome()," Criado com sucesso"));
     }
@@ -42,7 +42,7 @@ public class adminAlunoController {
             @ApiResponse(responseCode = "500", description = "Algo de errado aconteceu",
                     content = @Content)})
     @GetMapping("/buscaTodosAlunos")
-    public ResponseEntity getAllAlunos() throws InterruptedException {
+    public ResponseEntity<List<Aluno>> getAllAlunos() throws InterruptedException {
         List<Aluno> allAluno = adminAlunoService.getAllAluno();
         return ResponseEntity.ok(allAluno);
     }

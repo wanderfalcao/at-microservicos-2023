@@ -22,21 +22,15 @@ public class AdminCustomMetrics implements MeterBinder {
 
     @Override
     public void bindTo(MeterRegistry meterRegistry) {
-        Gauge.builder("Alunos Registrados", this, value -> {
-                    try {
-                        return adminAlunoService.getAllAluno().stream().count();
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-                })
+        Gauge.builder("Alunos Registrados", this, value ->
+                    adminAlunoService.getAllAluno().stream().count())
                 .description("Quantidade de alunos registrados")
-                .tags(Tags.of(Tag.of("data", LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))))//uma palavra adicionada a chave da sua métrica pra você encontrar mais facilmente na lista de informações expostas
+                .tags(Tags.of(Tag.of("data", LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))))
                 .register(meterRegistry);
-        Gauge.builder("Professores Registrados", this, value -> {
-                    return adminProfessorService.getAllProfessor().stream().count();
-                })
+        Gauge.builder("Professores Registrados", this, value ->
+                    adminProfessorService.getAllProfessor().stream().count())
                 .description("Quantidade de professsores registrados")
-                .tags(Tags.of(Tag.of("data", LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))))//uma palavra adicionada a chave da sua métrica pra você encontrar mais facilmente na lista de informações expostas
+                .tags(Tags.of(Tag.of("data", LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))))
                 .register(meterRegistry);
     }
 }

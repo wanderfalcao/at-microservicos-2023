@@ -18,14 +18,12 @@ public class AdminProfessorServiceImpl implements AdminProfessorService {
 
     @Override
     public List<Professor> getAllProfessor() {
-        List<Professor> professores = adminProfessorRepository.findAll();
-        return professores;
+        return adminProfessorRepository.findAll();
     }
 
     @Override
     public Professor getProfessorById(Long id) {
-        Professor professor = adminProfessorRepository.getProfessorById(id);
-        return professor;
+        return adminProfessorRepository.getProfessorById(id);
     }
 
     @Override

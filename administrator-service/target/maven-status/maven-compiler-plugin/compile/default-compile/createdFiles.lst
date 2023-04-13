@@ -1,4 +1,5 @@
 br\com\infnet\administratorservice\service\AdminProfessorService.class
+br\com\infnet\administratorservice\config\AdminCustomMetrics.class
 br\com\infnet\administratorservice\service\impl\adminAlunoServiceImpl.class
 br\com\infnet\administratorservice\service\AdminAlunoService.class
 br\com\infnet\administratorservice\model\Aluno.class

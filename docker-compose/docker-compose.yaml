@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
 
-  eureka-service:
+  eureka-server:
     build: ../eureka-server/.
     ports:
       - "8761:8761"
@@ -16,6 +16,7 @@ services:
       - "8080:8080"
       - "50000:50000"
     volumes:
+      -  ./sonnar/settings.xml:/var/maven_settings/settings.xml
       - ./jenkins_home:/var/jenkins_home
     restart: always
     container_name: jenkins
@@ -25,15 +26,34 @@ services:
     image: sonarqube
     ports:
       - "9000:9000"
+    environment:
+      - SONARQUBE_JDBC_URL=jdbc:mysql://db:3306/sonar?useUnicode=true&characterEncoding=utf8&rewriteBatchedStatements=true&useConfigs=maxPerformance
+      - SONARQUBE_JDBC_USERNAME=sonar
+      - SONARQUBE_JDBC_PASSWORD=sonar
+    volumes:
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_logs:/opt/sonarqube/logs
+      - sonarqube_extensions:/opt/sonarqube/extensions
+    depends_on:
+      - db
     container_name: sonarqube
     networks:
       - mynet
+  db:
+    image: mysql:8.0
+    environment:
+      - MYSQL_ROOT_PASSWORD=root_password
+      - MYSQL_DATABASE=sonar
+      - MYSQL_USER=sonar
+      - MYSQL_PASSWORD=sonar_password
+    volumes:
+      - db_data:/var/lib/mysql
   administrator-service:
     build: ../administrator-service/.
     ports:
       - "8088:8088"
     depends_on:
-      - eureka-service
+      - eureka-server
       - alunoprofessordb
       - rabbitmq
     links:
@@ -48,7 +68,7 @@ services:
     container_name: grafana
     restart: always
     depends_on:
-      - eureka-service
+      - eureka-server
       - administrator-service
       - prometheus
     links:
@@ -62,7 +82,7 @@ services:
     ports:
       - "9090:9090"
     depends_on:
-      - eureka-service
+      - eureka-server
       - administrator-service
     volumes:
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
@@ -75,7 +95,7 @@ services:
     ports:
       - "8090:8090"
     depends_on:
-      - eureka-service
+      - eureka-server
       - alunoprofessordb
       - rabbitmq
     links:
@@ -90,7 +110,7 @@ services:
     ports:
       - "8089:8089"
     depends_on:
-      - eureka-service
+      - eureka-server
       - alunoprofessordb
       - rabbitmq
     env_file:
@@ -133,3 +153,8 @@ services:
 networks:
   mynet:
     name: my-shared-db-network
+volumes:
+  sonarqube_data:
+  sonarqube_logs:
+  sonarqube_extensions:
+  db_data:

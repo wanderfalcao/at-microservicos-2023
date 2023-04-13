@@ -1,0 +1,20 @@
+<settings>
+    <servers>
+        <server>
+            <id>sonarqube</id>
+            <url>http://localhost:9000</url>
+        </server>
+    </servers>
+    <profiles>
+        <profile>
+            <id>sonar</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <sonar.host.url>http://localhost:9000</sonar.host.url>
+                <sonar.login>sqp_2b24bc242dbc1506d9a1a4f0d9b0c58b21a98397</sonar.login>
+            </properties>
+        </profile>
+    </profiles>
+</settings>

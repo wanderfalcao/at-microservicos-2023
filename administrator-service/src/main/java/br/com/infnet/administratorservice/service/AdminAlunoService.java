@@ -7,11 +7,11 @@ import java.util.List;
 
 public interface AdminAlunoService {
     @Transient
-    List<Aluno> getAllAluno() throws InterruptedException;
+    List<Aluno> getAllAluno() ;
 
     Aluno getAlunoById(Long id);
     Aluno getAlunoByNome(String nome);
     void deleteAlunoById(Long id);
-    void createAluno(Aluno Aluno);
-    void updateAluno(Aluno Aluno, Long id);
+    void createAluno(Aluno aluno);
+    void updateAluno(Aluno aluno, Long id);
 }

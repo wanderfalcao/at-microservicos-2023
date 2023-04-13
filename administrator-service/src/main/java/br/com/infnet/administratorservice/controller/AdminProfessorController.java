@@ -28,7 +28,7 @@ public class AdminProfessorController {
         @ApiResponse(responseCode = "500", description = "Algo de errado aconteceu",
                 content = @Content)})
     @PostMapping("/create")
-    public ResponseEntity create(@RequestBody Professor professor){
+    public ResponseEntity<Map<String, String>> create(@RequestBody Professor professor){
         adminProfessorService.createProfessor(professor);
         return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("Message", "Created"));
     }
@@ -40,7 +40,7 @@ public class AdminProfessorController {
             @ApiResponse(responseCode = "500", description = "Algo de errado aconteceu",
                     content = @Content)})
     @GetMapping("/buscaTodosProfessores")
-    public ResponseEntity getAllProfessors(){
+    public ResponseEntity<List<Professor>> getAllProfessors(){
         List<Professor> allProfessor = adminProfessorService.getAllProfessor();
         return ResponseEntity.ok(allProfessor);
     }
@@ -51,10 +51,9 @@ public class AdminProfessorController {
                             schema = @Schema(implementation = Professor.class))}),
             @ApiResponse(responseCode = "500", description = "Algo de errado aconteceu",
                     content = @Content)})
-    @GetMapping("/buscaProfessor/{ProfessorId}")
-    public ResponseEntity getProfessorById(@PathVariable Long ProfessorId){
-        Professor Professor = adminProfessorService.getProfessorById(ProfessorId);
-        return ResponseEntity.ok(Professor);
+    @GetMapping("/buscaProfessor/{professorId}")
+    public ResponseEntity<Professor> getProfessorById(@PathVariable Long professorId){
+        return ResponseEntity.ok(adminProfessorService.getProfessorById(professorId));
     }
 
     @ApiResponses(value = {
@@ -63,9 +62,9 @@ public class AdminProfessorController {
                             schema = @Schema(implementation = Professor.class))}),
             @ApiResponse(responseCode = "500", description = "Algo de errado aconteceu",
                     content = @Content)})
-    @PutMapping("/atualizarProfessor/{ProfessorId}")
-    public ResponseEntity updateProfessor(@RequestBody Professor Professor, @PathVariable Long ProfessorId){
-        adminProfessorService.updateProfessor(Professor, ProfessorId);
+    @PutMapping("/atualizarProfessor/{professorId}")
+    public ResponseEntity updateProfessor(@RequestBody Professor professor, @PathVariable Long professorId){
+        adminProfessorService.updateProfessor(professor, professorId);
         return ResponseEntity.ok().build();
     }
 
@@ -75,10 +74,10 @@ public class AdminProfessorController {
                             schema = @Schema(implementation = Professor.class))}),
             @ApiResponse(responseCode = "500", description = "Algo de errado aconteceu",
                     content = @Content)})
-    @DeleteMapping("/deletaProfessor/{ProfessorId}")
+    @DeleteMapping("/deletaProfessor/{professorId}")
     @Transactional
-    public ResponseEntity deleteProfessor(@PathVariable Long ProfessorId){
-        adminProfessorService.deleteProfessorById(ProfessorId);
+    public ResponseEntity deleteProfessor(@PathVariable Long professorId){
+        adminProfessorService.deleteProfessorById(professorId);
         return ResponseEntity.ok("Professor deletado");
     }
 }
