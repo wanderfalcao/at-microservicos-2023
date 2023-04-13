@@ -68,11 +68,13 @@ services:
     container_name: grafana
     restart: always
     depends_on:
-      - eureka-server
-      - administrator-service
       - prometheus
-    links:
-      - prometheus
+      - mysql
+    environment:
+      - GF_INSTALL_PLUGINS=grafana-piechart-panel
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_DATABASE_URL=mysql://grafana:secret@mysql:3306/prometheus
+      - GF_DATABASE_PASSWORD=secret
     networks:
       - mynet
     ports:
@@ -89,6 +91,27 @@ services:
     networks:
       - mynet
     container_name: prometheus
+  prometheus-db:
+    image: prom/prometheus:v2.25.0
+    command: "--config.file=/etc/prometheus/prometheus.yml --storage.tsdb.path=/prometheus"
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:latest
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=secret
+      - MYSQL_DATABASE=prometheus
+      - MYSQL_USER=grafana
+      - MYSQL_PASSWORD=secret
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - mynet
   aluno-service:
     build: ../aluno-service/.
     container_name: aluno-service
@@ -158,3 +181,6 @@ volumes:
   sonarqube_logs:
   sonarqube_extensions:
   db_data:
+  prometheus-data:
+  mysql-data:
+  grafana-data:
