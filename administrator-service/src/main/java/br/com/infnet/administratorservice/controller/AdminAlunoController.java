@@ -19,7 +19,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/aluno")
-public class adminAlunoController {
+public class AdminAlunoController {
     @Autowired
     AdminAlunoServiceImpl adminAlunoService;
 
