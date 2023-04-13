@@ -32,18 +32,18 @@ public class AdminProfessorServiceImpl implements AdminProfessorService {
     }
 
     @Override
-    public void createProfessor(Professor Professor) {
-        adminProfessorRepository.save(Professor);
+    public void createProfessor(Professor professor) {
+        adminProfessorRepository.save(professor);
     }
 
     @Override
-    public void updateProfessor(Professor Professor, Long id) {
+    public void updateProfessor(Professor professor, Long id) {
         adminProfessorRepository.findById(id);
-        Professor professor = adminProfessorRepository.getProfessorById(id);
-        if(professor != null){
-            professor.setNome(Professor.getNome());
-            professor.setMateria(Professor.getMateria());
-            adminProfessorRepository.save(professor);
+        Professor professorRecuperdoDoBanco = adminProfessorRepository.getProfessorById(id);
+        if(professorRecuperdoDoBanco != null){
+            professorRecuperdoDoBanco.setNome(professor.getNome());
+            professorRecuperdoDoBanco.setMateria(professor.getMateria());
+            adminProfessorRepository.save(professorRecuperdoDoBanco);
         }
 
     }
